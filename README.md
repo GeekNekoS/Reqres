@@ -1,5 +1,13 @@
 # Reqres
 Testing an open API => https://reqres.in
+<br /> <br />
+
+## Загрузка и настройка готового проекта
+• Версия Python: 3.10
+
+• После скачивания проекта к себе на компьютер не забудьте установить необходимые зависимости, прописав к консоли команду: 
+<code>pip install requirements.txt</code>
+<br /> <br />
 
 <!--
 https://reqres.in/ - Открытое API
