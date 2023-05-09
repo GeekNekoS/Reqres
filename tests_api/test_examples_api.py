@@ -95,7 +95,7 @@ def test_delete_delete():
     LOGGER.info('DELETE delete')
     assert response.status_code == 204
     assert response.content == b''
-    return response.status_code, response.json()
+    return response.status_code, response.content
 
 
 def test_post_register_successful():
