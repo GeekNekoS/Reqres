@@ -8,99 +8,130 @@ LOGGER = logging.getLogger(__name__)
 
 def test_get_list_users():
     response = requests.get("https://reqres.in/api/users?page=2")
-    LOGGER.info(f'GET list users')
+    LOGGER.info('GET list users')
     assert response.status_code == 200
     assert response.json() == get_list_users_json
 
 
 def test_get_single_user():
     response = requests.get("https://reqres.in/api/users/2")
-    LOGGER.info(f'GET single user')
+    LOGGER.info('GET single user')
     assert response.status_code == 200
     assert response.json() == get_single_user_json
 
 
 def test_get_single_user_not_found():
     response = requests.get("https://reqres.in/api/users/23")
-    LOGGER.info(f'GET single user not found')
+    LOGGER.info('GET single user not found')
     assert response.status_code == 404
     assert response.json() == {}
 
 
 def test_get_list_resource():
     response = requests.get("https://reqres.in/api/unknown")
-    LOGGER.info(f'GET list <resource>')
+    LOGGER.info('GET list <resource>')
     assert response.status_code == 200
     assert response.json() == get_list_resource_json
 
 
 def test_get_single_resource():
     response = requests.get("https://reqres.in/api/unknown/2")
-    LOGGER.info(f'GET single <resource>')
+    LOGGER.info('GET single <resource>')
     assert response.status_code == 200
     assert response.json() == get_single_resource_json
 
 
 def test_get_single_resource_not_found():
     response = requests.get("https://reqres.in/api/unknown/23")
-    LOGGER.info(f'GET single <resource> not found')
+    LOGGER.info('GET single <resource> not found')
     assert response.status_code == 404
     assert response.json() == {}
 
 
 def test_post_create():
-    post_create_json = {
+    post_create_json_param = {
         "name": "morpheus",
         "job": "leader"
     }
-    response = requests.post("https://reqres.in/api/users", json=post_create_json)
-    LOGGER.info(f'POST create')
+    response = requests.post("https://reqres.in/api/users", json=post_create_json_param)
+    LOGGER.info('POST create')
     assert response.status_code == 201
     assert response.json()['name'] == 'morpheus' and response.json()['job'] == 'leader'
 
 
 def test_put_update():
-    put_update_json = {
+    put_update_json_param = {
         "name": "morpheus",
         "job": "zion resident"
     }
-    response = requests.put("https://reqres.in/api/users/2", json=put_update_json)
-    LOGGER.info(f'PUT update')
+    response = requests.put("https://reqres.in/api/users/2", json=put_update_json_param)
+    LOGGER.info('PUT update')
     assert response.status_code == 200
     assert response.json()['name'] == 'morpheus' and response.json()['job'] == 'zion resident'
 
 
 def test_patch_update():
-    response = requests.patch("https://reqres.in/api/users/2")
-    LOGGER.info(f'PATCH update: {response.json()}')
-    assert response.status_code == 200  # <== Остановилась здесь
+    patch_update_json_param = {
+        "name": "morpheus",
+        "job": "zion resident"
+    }
+    response = requests.patch("https://reqres.in/api/users/2", json=patch_update_json_param)
+    LOGGER.info('PATCH update')
+    assert response.status_code == 200
+    assert response.json()['name'] == 'morpheus' and response.json()['job'] == 'zion resident'
 
 
-def test_examples_api():
+def test_delete_delete():
     response = requests.delete("https://reqres.in/api/users/2")
-    LOGGER.info(f'DELETE delete: {"Json должен отсутствовать"}')  # 10  # response.json()
+    LOGGER.info('DELETE delete')
     assert response.status_code == 204
+    assert response.content == b''
 
-    successful_params = {"email": "eve.holt@reqres.in", "password": "pistol"}
-    response = requests.post("https://reqres.in/api/register", params=successful_params)
-    LOGGER.info(f'POST register - successful: {response.json()}')  # 11
-    assert response.status_code == 400  # 200
 
-    unsuccessful_params = {"email": "sydney@fife"}
-    response = requests.post("https://reqres.in/api/register", params=unsuccessful_params)
-    LOGGER.info(f'POST register - unsuccessful: {response.json()}')  # 12
+def test_post_register_successful():
+    post_register_successful_json_param = {
+        "email": "eve.holt@reqres.in",
+        "password": "pistol"
+    }
+    response = requests.post("https://reqres.in/api/register", json=post_register_successful_json_param)
+    LOGGER.info('POST register - successful')
+    assert response.status_code == 200
+    assert response.json() == post_register_successful_json
+
+
+def test_post_register_unsuccessful():
+    post_register_unsuccessful_json_param = {
+        "email": "sydney@fife"
+    }
+    response = requests.post("https://reqres.in/api/register", json=post_register_unsuccessful_json_param)
+    LOGGER.info('POST register - unsuccessful')
     assert response.status_code == 400
+    assert response.json() == post_register_unsuccessful_json
 
-    successful_params = {"email": "eve.holt@reqres.in", "password": "cityslicka"}
-    response = requests.post("https://reqres.in/api/register", params=successful_params)
-    LOGGER.info(f'POST login - successful: {response.json()}')  # 13
-    assert response.status_code == 400  # 200
 
-    unsuccessful_params = {"email": "peter@klaven"}
-    response = requests.post("https://reqres.in/api/register", params=unsuccessful_params)
-    LOGGER.info(f'POST login - unsuccessful: {response.json()}')  # 14
+def test_post_login_successful():
+    post_login_successful_json_param = {
+        "email": "eve.holt@reqres.in",
+        "password": "cityslicka"
+    }
+    response = requests.post("https://reqres.in/api/register", json=post_login_successful_json_param)
+    LOGGER.info('POST login - successful')
+    assert response.status_code == 200
+    assert response.json() == post_login_successful_json  # в api появилось новое занчение - id
+
+
+def test_post_login_unsuccessful():
+    post_login_unsuccessful_json_param = {
+        "email": "peter@klaven"
+    }
+    response = requests.post("https://reqres.in/api/register", json=post_login_unsuccessful_json_param)
+    LOGGER.info('POST login - unsuccessful')
     assert response.status_code == 400
+    assert response.json() == post_register_unsuccessful_json
 
+
+def test_get_delayed_response():
     response = requests.get("https://reqres.in/api/users?delay=3")
-    LOGGER.info(f'GET delayed response: {response.json()}')  # 15
-    assert response.status_code == 200  # 400
+    LOGGER.info('GET delayed response')
+    assert response.status_code == 200
+    assert response.json() == get_delayed_response_json
