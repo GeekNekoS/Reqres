@@ -1,6 +1,6 @@
 from locators import *
 from Base_Page import BaseClass
-import requests
+import json
 import time
 
 import logging  #
@@ -22,21 +22,13 @@ class MainPage(BaseClass):
 
             response_code_ui = int(self.find_element(MainPageLocators.RESPONSE_CODE, time=self.time).text)
             try:
-                response_output_ui = self.find_element(MainPageLocators.RESPONSE_OUTPUT, time=self.time).json
-            except AttributeError:
+                response_output_ui = json.loads(self.find_element(MainPageLocators.RESPONSE_OUTPUT, time=self.time).text)
+            except:
                 response_output_ui = self.find_element(MainPageLocators.RESPONSE_OUTPUT, time=self.time).text
 
-            response_url = self.find_element(MainPageLocators.RESPONSE_URL, time=self.time).text
-            response = requests.get("https://reqres.in" + response_url)
-            response_code_api = response.status_code
-            try:
-                response_output_api = response.json()
-            except AttributeError:
-                response_output_api = response.content
-
-            row += (web_elem, response_code_ui, response_output_ui, response_code_api, response_output_api)
+            row += (response_code_ui, response_output_ui)
 
             parameters.append(row)
-            LOGGER.info(f'{row}')
+            # LOGGER.info(f'{row}')
 
         return parameters
