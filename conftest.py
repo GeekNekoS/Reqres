@@ -6,7 +6,7 @@ import pytest
 LOGGER = logging.getLogger(__name__)
 
 
-@pytest.fixture  # (scope="class")
+@pytest.fixture(scope="class")
 def driver():
     driver = webdriver.Chrome()
 
