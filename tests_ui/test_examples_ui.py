@@ -21,6 +21,3 @@ def test_examples_ui(driver):
             assert response_output_ui == response_content_api
         except Exception as ex:
             LOGGER.info(f'Assertion error: {ex}')
-
-    # //pre[@data-key='output-response' and @hidden='true']
-    # //pre[@data-key='output-response']

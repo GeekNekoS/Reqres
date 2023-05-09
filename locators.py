@@ -6,3 +6,6 @@ class MainPageLocators:
     RESPONSE_URL = (By.XPATH, "//span[@class='url']")
     RESPONSE_CODE = (By.XPATH, "//span[@data-key='response-code']")
     RESPONSE_OUTPUT = (By.XPATH, "//pre[@data-key='output-response']")
+
+    # //pre[@data-key='output-response' and @hidden='true']
+    # //pre[@data-key='output-response']
