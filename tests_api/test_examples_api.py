@@ -11,6 +11,7 @@ def test_get_list_users():
     LOGGER.info('GET list users')
     assert response.status_code == 200
     assert response.json() == get_list_users_json
+    return response.status_code, response.json()
 
 
 def test_get_single_user():
@@ -18,6 +19,7 @@ def test_get_single_user():
     LOGGER.info('GET single user')
     assert response.status_code == 200
     assert response.json() == get_single_user_json
+    return response.status_code, response.json()
 
 
 def test_get_single_user_not_found():
@@ -25,6 +27,7 @@ def test_get_single_user_not_found():
     LOGGER.info('GET single user not found')
     assert response.status_code == 404
     assert response.json() == {}
+    return response.status_code, response.json()
 
 
 def test_get_list_resource():
@@ -32,6 +35,7 @@ def test_get_list_resource():
     LOGGER.info('GET list <resource>')
     assert response.status_code == 200
     assert response.json() == get_list_resource_json
+    return response.status_code, response.json()
 
 
 def test_get_single_resource():
@@ -39,6 +43,7 @@ def test_get_single_resource():
     LOGGER.info('GET single <resource>')
     assert response.status_code == 200
     assert response.json() == get_single_resource_json
+    return response.status_code, response.json()
 
 
 def test_get_single_resource_not_found():
@@ -46,6 +51,7 @@ def test_get_single_resource_not_found():
     LOGGER.info('GET single <resource> not found')
     assert response.status_code == 404
     assert response.json() == {}
+    return response.status_code, response.json()
 
 
 def test_post_create():
@@ -57,6 +63,7 @@ def test_post_create():
     LOGGER.info('POST create')
     assert response.status_code == 201
     assert response.json()['name'] == 'morpheus' and response.json()['job'] == 'leader'
+    return response.status_code, response.json()
 
 
 def test_put_update():
@@ -68,6 +75,7 @@ def test_put_update():
     LOGGER.info('PUT update')
     assert response.status_code == 200
     assert response.json()['name'] == 'morpheus' and response.json()['job'] == 'zion resident'
+    return response.status_code, response.json()
 
 
 def test_patch_update():
@@ -79,6 +87,7 @@ def test_patch_update():
     LOGGER.info('PATCH update')
     assert response.status_code == 200
     assert response.json()['name'] == 'morpheus' and response.json()['job'] == 'zion resident'
+    return response.status_code, response.json()
 
 
 def test_delete_delete():
@@ -86,6 +95,7 @@ def test_delete_delete():
     LOGGER.info('DELETE delete')
     assert response.status_code == 204
     assert response.content == b''
+    return response.status_code, response.json()
 
 
 def test_post_register_successful():
@@ -97,6 +107,7 @@ def test_post_register_successful():
     LOGGER.info('POST register - successful')
     assert response.status_code == 200
     assert response.json() == post_register_successful_json
+    return response.status_code, response.json()
 
 
 def test_post_register_unsuccessful():
@@ -107,6 +118,7 @@ def test_post_register_unsuccessful():
     LOGGER.info('POST register - unsuccessful')
     assert response.status_code == 400
     assert response.json() == post_register_unsuccessful_json
+    return response.status_code, response.json()
 
 
 def test_post_login_successful():
@@ -118,6 +130,7 @@ def test_post_login_successful():
     LOGGER.info('POST login - successful')
     assert response.status_code == 200
     assert response.json() == post_login_successful_json  # в api появилось новое занчение - id
+    return response.status_code, response.json()
 
 
 def test_post_login_unsuccessful():
@@ -128,6 +141,7 @@ def test_post_login_unsuccessful():
     LOGGER.info('POST login - unsuccessful')
     assert response.status_code == 400
     assert response.json() == post_register_unsuccessful_json
+    return response.status_code, response.json()
 
 
 def test_get_delayed_response():
@@ -135,3 +149,4 @@ def test_get_delayed_response():
     LOGGER.info('GET delayed response')
     assert response.status_code == 200
     assert response.json() == get_delayed_response_json
+    return response.status_code, response.json()
