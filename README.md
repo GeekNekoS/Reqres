@@ -9,7 +9,7 @@ Testing an open API
 <code>pip install requirements.txt</code>
 <br /> <br />
 
-## Примеры тестов
+## Примеры позитивных и негативных тестов
 На сайте https://reqres.in
 <br /> <br />
 
